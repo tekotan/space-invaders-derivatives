@@ -1,6 +1,4 @@
 import greenfoot.*;
-
-import greenfoot.*;
 import java.util.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
@@ -43,8 +41,8 @@ public class ShipBullet extends Actor
     final List<String> questions = readFileInList("./images/questions.txt");
     final List<String> answers = readFileInList("./images/answers.txt");
 
-    final List<String> questionsHard = readFileInList("./images/questions.txt");
-    final List<String> answersHard = readFileInList("./images/answers.txt");
+    final List<String> questionsHard = readFileInList("./images/questions_hard.txt");
+    final List<String> answersHard = readFileInList("./images/answers_hard.txt");
 
     String currQuestion;
     String currAnswer;
