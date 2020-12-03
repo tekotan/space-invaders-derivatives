@@ -1,11 +1,5 @@
 import greenfoot.*;
 
-/**
- * Write a description of class SpaceInvader here.
- * 
- * @author (John Henry) 
- * @version (1)
- */
 public class SpaceInvader extends Actor
 {
     // Add your action code here.

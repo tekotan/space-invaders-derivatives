@@ -3,12 +3,7 @@ import java.util.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.io.*;
-/**
- * Write a description of class ShipBullet here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
+
 public class ShipBullet extends Actor
 {
     int speed;
@@ -22,30 +17,33 @@ public class ShipBullet extends Actor
         speed = 10;
 
     }
-    
+    // Read the file into a List object
     public static List<String> readFileInList(String fileName) {
-
+        // initialize empty list to populate
         List<String> lines = Collections.emptyList();
         try {
+            // populate list with the file contents by line
             lines = Files.readAllLines(Paths.get(fileName), StandardCharsets.UTF_8);
         }
 
         catch (IOException e) {
 
-            // do something
             e.printStackTrace();
         }
         return lines;
     }
 
+    // normal and hard questions lists declared
     final List<String> questions = readFileInList("./images/questions.txt");
     final List<String> answers = readFileInList("./images/answers.txt");
 
     final List<String> questionsHard = readFileInList("./images/questions_hard.txt");
     final List<String> answersHard = readFileInList("./images/answers_hard.txt");
 
+    // instance variables for the curr question and answer
     String currQuestion;
     String currAnswer;
+    // random object that stores the random seed
     Random rand = new Random();
 
     public void askQuestion(boolean hard) {
@@ -62,7 +60,8 @@ public class ShipBullet extends Actor
         }
         String response = Greenfoot.ask("Find the Derivative of: " + currQuestion);
         if (!response.equals(currAnswer)){
-        askQuestion(hard);
+            // ask another question
+            askQuestion(hard);
         }
     }
     /**
@@ -71,7 +70,6 @@ public class ShipBullet extends Actor
      */
     public void act() 
     {
-        // Add your action code here.
         if (getY() <= 0)
         {
             getWorld().removeObject(this);
@@ -96,7 +94,7 @@ public class ShipBullet extends Actor
      */
     public boolean checkCollision()
     {
-
+        // if there is an intersection with space invader class
         if (getOneIntersectingObject (SpaceInvader.class) != null)
         {
             getWorld().removeObject(getOneIntersectingObject (SpaceInvader.class));
@@ -116,6 +114,7 @@ public class ShipBullet extends Actor
             getWorld().removeObject(this);
             return true;
         }
+        // if the bullet hits the barrier then remove barrier
         else if (getOneIntersectingObject (Barrier.class) != null)
         {
             getWorld().removeObject(getOneIntersectingObject (Barrier.class));
@@ -126,6 +125,9 @@ public class ShipBullet extends Actor
         {
             getWorld().removeObject(getOneIntersectingObject (UFO.class));
             getWorld().setScore(getWorld().getScore()+ 300);
+
+            askQuestion(true);
+            
             getWorld().removeObject(this);
             
             return true;

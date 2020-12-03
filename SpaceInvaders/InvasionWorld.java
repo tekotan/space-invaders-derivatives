@@ -1,11 +1,5 @@
 import greenfoot.*;
 
-/**
- * Write a description of class InvasionWorld here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class InvasionWorld extends World
 {
 

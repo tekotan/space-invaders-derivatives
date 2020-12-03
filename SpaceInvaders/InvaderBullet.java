@@ -1,11 +1,5 @@
 import greenfoot.*;
 
-/**
- * Write a description of class InvaderBullet here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class InvaderBullet extends Actor
 {   
     private int speed;
