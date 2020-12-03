@@ -1,5 +1,10 @@
 import greenfoot.*;
 
+import greenfoot.*;
+import java.util.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
+import java.io.*;
 /**
  * Write a description of class ShipBullet here.
  * 
@@ -19,7 +24,49 @@ public class ShipBullet extends Actor
         speed = 10;
 
     }
+    
+    public static List<String> readFileInList(String fileName) {
 
+        List<String> lines = Collections.emptyList();
+        try {
+            lines = Files.readAllLines(Paths.get(fileName), StandardCharsets.UTF_8);
+        }
+
+        catch (IOException e) {
+
+            // do something
+            e.printStackTrace();
+        }
+        return lines;
+    }
+
+    final List<String> questions = readFileInList("./images/questions.txt");
+    final List<String> answers = readFileInList("./images/answers.txt");
+
+    final List<String> questionsHard = readFileInList("./images/questions.txt");
+    final List<String> answersHard = readFileInList("./images/answers.txt");
+
+    String currQuestion;
+    String currAnswer;
+    Random rand = new Random();
+
+    public void askQuestion(boolean hard) {
+        // get random hard or easy question
+        if (hard){
+        int index = rand.nextInt(questionsHard.size());
+        currQuestion = questionsHard.get(index);
+        currAnswer = answersHard.get(index);
+
+        } else {
+        int index = rand.nextInt(questions.size());
+        currQuestion = questions.get(index);
+        currAnswer = answers.get(index);
+        }
+        String response = Greenfoot.ask("Find the Derivative of: " + currQuestion);
+        if (!response.equals(currAnswer)){
+        askQuestion(hard);
+        }
+    }
     /**
      * Act - do whatever the ShipBullet wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -61,6 +108,9 @@ public class ShipBullet extends Actor
             }
             Greenfoot.playSound("invaderkilled.wav");
             getWorld().setScore(getWorld().getScore()+ 50);
+
+            askQuestion(false);
+
             if (getWorld().getObjects(SpaceInvader.class).size() == 0)
             {
                 getWorld().gameOver(true);
